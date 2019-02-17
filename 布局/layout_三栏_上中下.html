@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>三栏布局--上中下</title>
+    <style>
+        *{margin: 0;}
+        html,body{height: 100%;}
+        section{float:left;width: 300px;height:100%;margin-right: 20px;}
+        .layout{height: 100%;}
+        .layout .top{background-color: red;}
+        .layout .center{background-color: yellow;}
+        .layout .bottom{background-color: pink;}
+    </style>
+</head>
+<body>
+    <!-- position -->
+    <section>
+        <style>
+            .layout.position{position: relative;}
+            .layout.position > div{position: absolute;width:100%;}
+            .layout.position .top{top: 0; height: 100px;}
+            .layout.position .center{top:100px;bottom:100px;}
+            .layout.position .bottom{bottom: 0;height: 100px;}
+        </style>
+        <article class="layout position">
+            <div class="top"></div>
+            <div class="center">方式1：position</div>
+            <div class="bottom"></div>
+        </article>
+    </section>
+    <!-- flex -->
+    <section>
+        <style>
+            .layout.flex{display: flex;flex-direction: column;}
+            .layout.flex .top{height: 100px;}
+            .layout.flex .center{flex:1;}
+            .layout.flex .bottom{height: 100px;}
+        </style>
+        <article class="layout flex">
+            <div class="top"></div>
+            <div class="center">方式2：flex</div>
+            <div class="bottom"></div>
+        </article>
+    </section>
+    <!-- grid -->
+    <section>
+            <style>
+                .layout.grid{display: grid;grid-template-columns: 100%;grid-template-rows: 100px auto 100px;}
+            </style>
+            <article class="layout grid">
+                <div class="top"></div>
+                <div class="center">方式3：grid</div>
+                <div class="bottom"></div>
+            </article>
+        </section>
+</body>
+</html>
