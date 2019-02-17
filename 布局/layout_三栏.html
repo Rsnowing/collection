@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>三栏布局</title>
+    <style>
+        *{margin: 0;}
+        body{min-width: 600px;}
+        .layout{margin-bottom: 20px;}
+        .layout > div{height: 100px;}
+    </style>
+</head>
+<body>
+    <h1>实现三栏布局，左右定宽，中间自适应</h1>
+    <section>
+        <style>
+            .layout.float .left{float: left;width: 300px;background-color: red;}
+            .layout.float .right{float: right;width: 300px;background-color: yellow;}
+            .layout.float .center{margin:0 300px;background-color: pink;}
+        </style>
+        <div class="layout float">
+            <div class="left"></div>
+            <div class="right"></div>
+            <div class="center"><h4>方式1：float+margin</h4></div>
+        </div>
+    </section>
+    <section>
+        <style>
+            .layout.position > div{position: absolute;}
+            .layout.position .left{left: 0;width: 300px;background-color: red;}    
+            .layout.position .center{left: 300px;right: 300px;background-color: pink;}
+            .layout.position .right{right: 0;width: 300px;background-color: yellow;}
+        </style>
+        <div class="layout position">
+            <div class="left"></div>
+            <div class="center"><h4>方式2：position</h4></div>
+            <div class="right"></div>
+        </div>
+    </section>
+    <section>
+        <style>
+            .layout.flex{display:flex;margin-top: 140px;}
+            .layout.flex .left{width: 300px;background-color: red;}    
+            .layout.flex .center{flex:1;background-color: pink;}
+            .layout.flex .right{width: 300px;background-color: yellow;}
+        </style>
+        <div class="layout flex">
+            <div class="left"></div>
+            <div class="center"><h4>方式3：flex</h4></div>
+            <div class="right"></div>
+        </div>
+    </section>
+    <section>
+        <style>
+            .layout.table{display:table;width: 100%;}
+            .layout.table > div{display: table-cell;}
+            .layout.table .left{width: 300px;background-color: red;}    
+            .layout.table .center{background-color: pink;}
+            .layout.table .right{width: 300px;background-color: yellow;}
+        </style>
+        <div class="layout table">
+            <div class="left"></div>
+            <div class="center"><h4>方式4：table</h4></div>
+            <div class="right"></div>
+        </div>
+    </section>
+    <section>
+        <style>
+            .layout.grid{display: grid;width: 100%;grid-template-rows: 100px;grid-template-columns: 300px auto 300px;}
+            .layout.grid .left{background-color: red;}    
+            .layout.grid .center{background-color: pink;}
+            .layout.grid .right{background-color: yellow;}
+        </style>
+        <div class="layout grid">
+            <div class="left"></div>
+            <div class="center"><h4>方式5：grid</h4></div>
+            <div class="right"></div>
+        </div>
+    </section>
+</body>
+</html>
