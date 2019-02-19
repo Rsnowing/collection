@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>获取元素宽高</title>
+    <style>
+    .box{
+        width: 100px;
+        height: 100px;
+        padding: 10px;
+        background-color: red;
+    }
+    </style>
+</head>
+<body>
+    <div class="box" style="width: 100px;"></div>
+    <script>
+        var dom=document.getElementsByClassName('box')[0];
+        var w1=dom.style.width;
+        // var w2=dom.currentStyle.width;
+        var w3=window.getComputedStyle(dom).width;
+        var obj=dom.getBoundingClientRect();
+    </script>
+</body>
+</html>

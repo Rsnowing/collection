@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>边距重叠</title>
+    <style>
+        *{margin: 0;}
+    </style>
+</head>
+<body>
+    <!-- BFC 垂直方向上边距重叠 -->
+    <section id="margin">
+        <style>
+            #margin{
+                background-color: pink;
+            }
+            #margin  p{
+                background-color: red;
+                margin: 5px auto 25px;
+            }
+        </style>
+        <p>1</p>
+        <div style="overflow: hidden">
+            <p>2</p>
+        </div>
+        <p>3 </p>
+        <p>4 </p>
+    </section>
+    <!--BFC不与float元素重叠 -->
+    <section>   
+        <style>
+            #layout{width: 100px;background-color: lightblue;margin-top: 30px;}
+            #layout .left{float: left;width: 30px;height: 100px;background-color: #ccc;}
+            #layout .right{height: 140px;background-color: #435333;overflow: hidden;}
+        </style>
+        <div id="layout">
+            <div class="left"></div>
+            <div class="right"></div>
+        </div>
+    </section>
+    <!-- 清除浮动 BFC子元素flaot也会参与高度计算-->
+    <section id="float">
+        <style>
+            #float{background-color: #274565;margin-top: 30px;}
+            #float .float{float: left;font-size: 20px;}
+        </style>
+        <div class="float">我浮动了</div>
+    </section>
+</body>
+</html>

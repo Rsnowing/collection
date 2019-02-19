@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // 对象字面量
+     var obj1 = {name:'obj1'};
+     var obj2 = new Object({name:'obj1'});
+     obj1.__proto__ === Object.prototype
+     obj2.__proto__ === Object.prototype
+     obj1.__proto__.constructor === Object
+     
+    //  通过构造函数
+    var M = function(name){
+        this.name=name;
+    }
+    M.prototype.walk=function(){
+        console.log('walking');
+    }
+    var obj3=new M('obj3');
+    obj3.__proto__ === M.prototype
+
+    // Object.create
+    var P = {name:'obj4'};
+    var obj4=Object.create(P);
+    console.log(obj4);//{}
+    obj4.__proto__ === P;
+
+    </script>
+</body>
+</html>

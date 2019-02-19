@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    /**
+     * 类的声明
+     */
+    // 方式1
+    function Animal(name){
+        this.name=name;
+    }
+    // 方式2
+    class Animal2{
+        constructor (name){
+            this.name= name;
+        }
+    }
+    /**
+     * 类的实例化
+     */
+     console.log(new Animal('big'),new Animal('dog'))
+
+    /**
+     * 类与继承
+     */
+    //  方式1 借用构造函数实现继承
+    // 原理：  Parent1.call(this);
+    // 缺点：Parent1的原型链并没有被继承
+    function Parent1(){
+        this.name='parent1';
+    }
+    Parent1.prototype.say=function(){
+        console.log('i am parent1')
+    }
+    function Child1(){
+        Parent1.call(this);//原理
+        this.type='child1'
+    }
+    console.log(new Child1())
+
+
+    // 方式2 借用原型链实现继承
+    // 缺点：公用原型对象
+    function Parent2(){
+        this.name='parent2';
+        this.play=[1,2,3]
+    }
+    function Child2(){
+        this.type='child2';
+    }
+    Child2.prototype = new Parent2();//原理
+    // new Parent2()返回一个对象a，
+    // 该对象有name，play,__proto__属性,a.__proto__.constructor===Parent2
+    var obj1=new Child2();
+    var obj2=new Child2();
+    console.log(obj1,obj2);
+    obj1.play.push(4);
+    console.log(obj1,obj2);
+
+    // 第3种 组合方式(组合构造函数、原型链继承)
+    // 缺点：父类的构造函数执行了2次
+    function Parent3(){
+        this.name='parent3';
+        this.play=[1,2,3]
+    }
+    function Child3(){
+        Parent3.call(this);//原理
+        this.type='child3';
+    }
+    Child3.prototype = new Parent3();//原理
+
+    // 第4种 组合方式优化
+    // 缺点：
+    function Parent4(){
+        this.name='parent4';
+        this.play=[1,2,3]
+    }
+    function Child4(){
+        Parent4.call(this);//原理
+        this.type='child4';
+    }
+    Child4.prototype = Parent4.prototype;//原理
+    var obj3=new Child4();
+    // 缺点 无法区分实例由父类还是子类构造的
+    obj3 instanceof Child4;//true
+    obj3 instanceof Parent4;//true
+
+    // 第5种 组合方式优化2
+    function Parent5(){
+        this.name='parent5';
+        this.play=[1,2,3]
+    }
+    function Child5(){
+        Parent5.call(this);//原理 此句可继承构造器Parent5中的属性
+        this.type='child5'; 
+    }
+    Child5.prototype = Object.create(Parent5.prototype);//原理 让Child5.prototype.__proto__===Parent5.prototype
+    Child5.prototype.constructor=Child5;
+    var obj4=new Child5();
+    
+</script>                                       
+</body>
+</html>
