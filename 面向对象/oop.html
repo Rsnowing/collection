@@ -104,6 +104,33 @@
     Child5.prototype.constructor=Child5;
     var obj4=new Child5();
     
+
+    function Parent11(value){
+         this.value = value;
+         this.name = 'llhe';
+    }
+    function Child11(value){
+        Parent11.call(this,value)
+    }
+    Child11.prototype = new Parent11();
+    var child11 = new Child11(2)
+
+    function Parent(value){
+         this.value = value;
+         this.name = 'llhe';
+    }
+    function Child(value){
+        Parent.call(this,value)
+    }
+    Child.prototype = Object.create(Parent.prototype,{
+        constructor:{
+            value:'Child',
+            writable:true,
+            enumerable:false,
+            configurable:true
+        }
+    })
+    var child = new Child(2);
 </script>                                       
 </body>
 </html>
