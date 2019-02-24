@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 当我们在构造 Promise 的时候，构造函数内部的代码是立即执行的
+      new Promise((resolve, reject) => {
+        console.log("new Promise");
+        resolve("我是一个返回值");
+      }).then(res => {
+        console.log(res);
+      });
+      console.log("finished");
+      // Promise新建后立即执行，所以首先输出的是“Promise”。
+      // 然后，then方法指定的回调函数，将在当前脚本所有同步任务执行完才会执行，
+      // 所以“Resolved”最后输出。
+      // new Promise =》 finished =》 我是一个返回值
+
+    //   用Promise对象实现的Ajax操作的例子。
+      var getJSON = function(url) {
+        var promise = new Promise(function(resolve, reject) {
+          var client = new XMLHttpRequest();
+          client.open("GET", url);
+          client.onreadystatechange = handler;
+          client.responseType = "json";
+          client.setRequestHeader("Accept", "application/json");
+          client.send();
+
+          function handler() {
+            if (this.readyState !== 4) {
+              return;
+            }
+            if (this.status === 200) {
+              resolve(this.response);
+            } else {
+              reject(new Error(this.statusText));
+            }
+          }
+        });
+
+        return promise;
+      };
+
+      getJSON("posts.json").then(
+        function(json) {
+          console.log("Contents: " + json);
+        },
+        function(error) {
+          console.error("出错了", error);
+        }
+      );
+    </script>
+  </body>
+</html>
