@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+      <!-- 张鑫旭的DOM测试题 -->
+      <!-- https://github.com/zhangxinxu/quiz/issues/9 -->
+    <div id="container" class="container">
+      <section>
+        <img
+          src="https://image.zhangxinxu.com/image/study/s/s256/mm.jpg"
+          alt="外层图片"
+        />
+        <p>
+          <img
+            src="https://image.zhangxinxu.com/image/study/s/s256/mm1.jpg"
+            alt="示意图1"
+          />
+          <img
+            src="https://image.zhangxinxu.com/image/study/s/s256/mm2.jpg"
+            alt="示意图2"
+          />
+          <img
+            id="compareImg"
+            src="https://image.zhangxinxu.com/image/study/s/s256/mm3.jpg"
+            alt="示意图3"
+          />
+          <img
+            src="https://image.zhangxinxu.com/image/study/s/s256/mm4.jpg"
+            alt="示意图4"
+          />
+          <img
+            src="https://image.zhangxinxu.com/image/study/s/s256/mm5.jpg"
+            alt="示意图5"
+          />
+        </p>
+      </section>
+    </div>
+    <script>
+      let container = document.getElementById("container");
+      let imgs = document.querySelectorAll("img");
+      let basicOutline = "2px solid";
+      //  点击页面，判断当前点击的元素是否是#container的子元素
+      //   是否是img元素
+      window.addEventListener("click", function(e) {
+        let current = e.target;
+        // 1,2同时满足，则当前设置当前img的outline，否则取消所有img的outline
+        console.log(current.previousElementSibling);
+        if (isChildElement(current)) {
+          current.style.outline = getOutline(current);
+        } else {
+          for (let img of imgs) {
+            img.style.outline = "none";
+          }
+        }
+      });
+
+      // 是否是子元素
+      let isChildElement = el => {
+        return el && container.contains(el) && el.tagName === "IMG";
+      };
+
+      // 根据位置获取outline样式
+      let getOutline = el => {
+        if (el.id === "compareImg") {
+          return basicOutline;
+        } else {
+          let tmpEl = el.previousElementSibling;
+          while (tmpEl) {
+            if (tmpEl.id === "compareImg") {
+              return "2px solid red";
+            }
+            tmpEl = tmpEl.previousElementSibling;
+          }
+          tmpEl = el.nextElementSibling;
+          while (tmpEl) {
+            if (tmpEl.id === "compareImg") {
+              return "2px solid green";
+            }
+            tmpEl = tmpEl.nextElementSibling;
+          }
+        }
+        return "2px solid blue";
+      };
+    </script>
+  </body>
+</html>
