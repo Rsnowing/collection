@@ -16,9 +16,9 @@
         console.log(res);
       });
       console.log("finished");
-      // Promise新建后立即执行，所以首先输出的是“Promise”。
+      // Promise新建后立即执行，所以首先输出的是“new Promise”。
       // 然后，then方法指定的回调函数，将在当前脚本所有同步任务执行完才会执行，
-      // 所以“Resolved”最后输出。
+      // 所以“ 我是一个返回值”最后输出。
       // new Promise =》 finished =》 我是一个返回值
 
     //   用Promise对象实现的Ajax操作的例子。

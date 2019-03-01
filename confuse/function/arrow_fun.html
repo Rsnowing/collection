@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let x = 1;
+      let y = 2;
+      console.log(this.x);
+      let sum = (x, y) => {
+        console.log(this);
+        return this.x + this.y;
+      };
+      function sum2(x, y) {
+        console.log(this);
+        return this.x + this.y;
+      }
+      console.log(sum(x, y));
+      console.log(sum2(x, y));
+      var adder = {
+        base: 1,
+
+        add: function(a) {
+          var f = v => v + this.base;
+          return f(a);
+        },
+
+        addThruCall: function(a) {
+          var f = v => v + this.base;
+          var b = {
+            base: 2
+          };
+
+          return f.call(b, a);
+        }
+      };
+
+      console.log(adder.add(1)); // 输出 2
+      console.log(adder.addThruCall(1)); // 仍然输出 2（而不是3 ——译者注）
+
+    </script>
+  </body>
+</html>

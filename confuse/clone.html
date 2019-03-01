@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // https://www.jianshu.com/p/cbe23f9f8bc6 Object.prototype.hasOwnProperty.call
+      // for-in 语句以原始插入顺序迭代对象的可枚举属性。
+      // for-in会把继承链的对象属性都会遍历一遍,所以会更花时间.
+      function shallowClone(source) {
+        var target = {};
+        for (var key in source) {
+          // 使用 Object 原型上的 hasOwnProperty 属性
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            target[key] = source[key]; 
+          }
+        }
+        return target;
+      }
+      var a = {
+        name: "lily",
+        book: {
+          title: "you dont konw js",
+          price: 34
+        },
+        a1: null,
+        a2: undefined,
+        a3: 123
+      };
+      var b = shallowClone(a);
+      a.name = "mary";
+      a.book.price = 90;
+      console.log(b);
+
+      // 简单深复制 在浅复制的基础上判断是否是对象
+      // 没有对传入的参数进行校验，传入null时应该返回null，而不是{}
+      // 对象的判断不严谨，因为typeof null === 'object'
+      // 没有考虑数组的兼容
+      function deepClone1(source) {
+        var target = {};
+        for (var key in source) {
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            if (typeof source[key] === "object") {
+              target[key] = deepClone1(source[key]);
+            } else {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+      var a = {
+        name: "lily",
+        book: {
+          title: "you dont konw js",
+          price: 34
+        },
+        a1: null,
+        a2: undefined,
+        a3: 123,
+        a4: [1, 2, 4]
+      };
+      var b = deepClone1(a);
+      a.name = "mary";
+      a.book.price = 90;
+      a.a4[2] = 0;
+      console.log(b);
+
+      //    深复制2
+      // 判断对象方法1
+      function isObject1(obj) {
+        return Object.prototype.toString.call(obj) === "[object oObject]";
+      }
+      // 判断对象方法2
+      function isObject(obj) {
+        return typeof obj === "object" && obj !== null;
+      }
+      function deepClone2(source) {
+        if (!isObject(source)) return source;
+        var target = Array.isArray(source) ? [] : {};
+        for (var key in source) {
+          if (Object.prototype.hasOwnProperty.call(source, key)) {
+            if (isObject(source[key])) {
+              target[key] = deepClone2(source[key]);
+            } else {
+              target[key] = source[key];
+            }
+          }
+        }
+        return target;
+      }
+      var a = {
+        name: "lily",
+        book: {
+          title: "you dont konw js",
+          price: 34
+        },
+        a1: null,
+        a2: undefined,
+        a3: 123,
+        a4: [1, 2, 4]
+      };
+      var b = deepClone2(a);
+      a.name = "mary";
+      a.book.price = 90;
+      a.a4[2] = 0;
+      console.log(b);
+    </script>
+  </body>
+</html>

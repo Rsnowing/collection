@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      {
+        // 在函数调用时使用展开语法
+        function fun(x, y, z) {
+          console.log(x, y, z);
+        }
+        var arr = [1, 2, 3];
+        fun(...arr); // 跟fun.apply(null,arr)作用相同
+      }
+
+      {
+        // 构造字面量数组时使用展开语法
+        var parts = ["shoulders", "knees"];
+        var lyrics = ["head", ...parts, "and", "toes"];
+        // ["head", "shoulders", "knees", "and", "toes"]
+      }
+
+      {
+        // 数组拷贝使用展开语法
+        // 展开语法和 Object.assign() 行为一致, 执行的都是浅拷贝(只遍历一层)
+        var arr = [1, 2, 3];
+        var arrclone = [...arr]; // like arr.slice()
+        arrclone[0] = 4;
+        console.log(arr, arrclone);
+      }
+
+      {
+        // 连接多个数组
+        var arr1 = [0, 1, 2];
+        var arr2 = [3, 4, 5];
+        // 将 arr2 中所有元素附加到 arr1 后面并返回
+        var arr3 = arr1.concat(arr2);
+
+        // 使用 展开语法
+        var arr4 = [...arr1,...arr2]
+      }
+
+      var arr;
+    </script>
+  </body>
+</html>
