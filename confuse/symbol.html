@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var symbol1 = Symbol(2);
+        var symbol2 = Symbol(2); 
+        
+        var obj = {
+            a:'a',
+            'b':'b',
+        };
+        obj[Symbol('c')] = 'c'
+        for (var key in obj){
+            console.log(key)
+        }
+        console.log(Object.getOwnPropertySymbols(obj));//[Symbol(c)]
+    </script>
+</body>
+</html>
